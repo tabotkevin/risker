@@ -1,0 +1,60 @@
+<template>
+  <div class="login">
+    <div class="col-sm-4 col-sm-offset-4">
+      <h2>Log In</h2>
+      <p>Log in to your account</p>
+      <div class="alert alert-danger" v-if="error">
+        <p>{{ error }}</p>
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter your username"
+          v-model="credentials.username">
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter your password"
+          v-model="credentials.password">
+      </div>
+      <button class="btn btn-primary btn-large btn-block" @click="submit()">Login</button>
+    </div>
+  </div>
+
+</template>
+
+<script>
+import * as types from '../store/mutation-types'
+export default {
+  data () {
+    return {
+      credentials: {
+        username: '',
+        password: ''
+      },
+      error: ''
+    }
+  },
+  methods: {
+    submit () {
+      var credential = {
+        username: this.credentials.username,
+        password: this.credentials.password
+      }
+      let redirect = decodeURIComponent(this.$route.query.redirect || '/risks')
+      this.$store.dispatch(types.LOGIN, {
+        credential: credential,
+        redirect: redirect
+      }).catch((e) => { this.error = 'Unable to log in with provided credentials.' })
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>
