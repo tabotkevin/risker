@@ -7,16 +7,11 @@ from profiles.models import User
 from profiles.permissions import IsOwnerOrReadOnly
 from profiles.serializers import UserSerializer
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.reverse import reverse
 
 
 @api_view(['GET'])
 def api_root(request, format=None):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-    })
-    # return redirect('/users')
+    return redirect('/users')
 
 
 class UserList(generics.ListCreateAPIView):
