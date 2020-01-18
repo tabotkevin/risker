@@ -3,6 +3,7 @@
 .flaskenv
 *.pyc
 *.sqlite
+*.sqlite3
 *.pyo
 venv/
 venv*
